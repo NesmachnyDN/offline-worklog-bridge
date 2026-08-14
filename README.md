@@ -1,5 +1,9 @@
 # Offline Worklog Bridge
 
+<p align="center">
+  <img src="docs/images/offline-worklog-bridge-social-preview.jpg" alt="Offline Worklog Bridge portfolio cover" width="1000">
+</p>
+
 An offline-first bridge for reconciling and publishing worklogs when the source tracker and destination timesheet are reachable only from **mutually exclusive network contexts**.
 
 The project demonstrates a store-and-forward integration pattern: capture detailed worklogs while connected to the source environment, persist an immutable local snapshot, disconnect, review the accounting transformation, then publish the prepared timesheet after switching to the destination environment.
