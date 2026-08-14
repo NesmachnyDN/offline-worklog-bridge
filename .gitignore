@@ -1,0 +1,28 @@
+# Build
+/target/
+/node_modules/
+/frontend/generated/
+
+# Runtime state
+/data/
+*.mv.db
+*.trace.db
+*.lock.db
+
+# Credentials and local configuration
+.env
+.env.*
+!.env.example
+settings.json
+*.jks
+*.p12
+*.pfx
+*.pem
+*.key
+
+# IDE/OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
