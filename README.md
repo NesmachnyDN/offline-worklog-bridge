@@ -19,14 +19,14 @@ The historical business problem had another mismatch: the source system tracked 
 ## Implemented workflow
 
 1. **Capture** detailed source worklogs into an embedded local snapshot.
-2. **Classify** entries as `DELIVERY` or `NON_DELIVERY`.
+2. **Classify** vendor-neutral raw worklogs as `DELIVERY` or `NON_DELIVERY` using an explicit, configurable policy.
 3. **Reconcile workload** against a standard 8-hour weekday / 40-hour work-week expectation and surface under/over-reporting without changing source data.
 4. **Allocate** non-delivery time proportionally across delivery tasks for the same day.
 5. **Preview** exactly what the destination weekly timesheet will receive.
 6. **Publish** one aggregated destination entry per day with traceable issue references in the comment.
 7. **Prevent duplicates** with a stable SHA-256 idempotency key and a local publish ledger.
 
-The public demo uses synthetic source data and a local destination adapter. Vendor-specific APIs are ports/adapters, not part of the domain model.
+The public demo uses synthetic source data and a local destination adapter. Vendor-specific APIs are ports/adapters, not part of the domain model. Source payloads cross an explicit anti-corruption layer (`RawWorklog` → classification → `CapturedWorklog`).
 
 ## Why proportional allocation
 
@@ -84,16 +84,18 @@ Open `http://127.0.0.1:8080` and click **Capture synthetic work week**. The appl
 - [Domain and accounting model](docs/domain-model.md)
 - [Allocation policy](docs/allocation-policy.md)
 - [Workload reconciliation](docs/reconciliation.md)
+- [Adapter contracts / anti-corruption layer](docs/adapter-contracts.md)
 - [Offline network boundary](docs/offline-network-boundary.md)
 - [ADR-001: Ports and adapters](docs/adr-001-ports-and-adapters.md)
 - [ADR-002: Local staging / store-and-forward](docs/adr-002-local-staging.md)
 - [ADR-003: Proportional allocation](docs/adr-003-proportional-allocation.md)
+- [ADR-004: Configurable activity classification](docs/adr-004-configurable-classification.md)
 
 ## Roadmap
 
-- Current: synthetic source adapter, persistent snapshots, workload reconciliation, proportional allocation, preview, local destination adapter and idempotent publishing.
-- Next: configurable classification rules and a sanitized Jira/Tempo source adapter example.
-- Next: generic REST destination adapter with dry-run and explicit reconciliation report.
+- Current: synthetic source adapter, configurable classification, persistent snapshots, workload reconciliation, proportional allocation, preview, local destination adapter and idempotent publishing.
+- Next: optional sanitized Jira-compatible source adapter example.
+- Next: generic REST destination adapter with explicit dry-run/reconciliation output.
 - Optional: import/export snapshot package for physically separated machines.
 
 ## Development approach
