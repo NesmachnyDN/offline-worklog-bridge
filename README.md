@@ -20,10 +20,11 @@ The historical business problem had another mismatch: the source system tracked 
 
 1. **Capture** detailed source worklogs into an embedded local snapshot.
 2. **Classify** entries as `DELIVERY` or `NON_DELIVERY`.
-3. **Allocate** non-delivery time proportionally across delivery tasks for the same day.
-4. **Preview** exactly what the destination weekly timesheet will receive.
-5. **Publish** one aggregated destination entry per day with traceable issue references in the comment.
-6. **Prevent duplicates** with a stable SHA-256 idempotency key and a local publish ledger.
+3. **Reconcile workload** against a standard 8-hour weekday / 40-hour work-week expectation and surface under/over-reporting without changing source data.
+4. **Allocate** non-delivery time proportionally across delivery tasks for the same day.
+5. **Preview** exactly what the destination weekly timesheet will receive.
+6. **Publish** one aggregated destination entry per day with traceable issue references in the comment.
+7. **Prevent duplicates** with a stable SHA-256 idempotency key and a local publish ledger.
 
 The public demo uses synthetic source data and a local destination adapter. Vendor-specific APIs are ports/adapters, not part of the domain model.
 
@@ -82,6 +83,7 @@ Open `http://127.0.0.1:8080` and click **Capture synthetic work week**. The appl
 - [Architecture](docs/architecture.md)
 - [Domain and accounting model](docs/domain-model.md)
 - [Allocation policy](docs/allocation-policy.md)
+- [Workload reconciliation](docs/reconciliation.md)
 - [Offline network boundary](docs/offline-network-boundary.md)
 - [ADR-001: Ports and adapters](docs/adr-001-ports-and-adapters.md)
 - [ADR-002: Local staging / store-and-forward](docs/adr-002-local-staging.md)
@@ -89,7 +91,7 @@ Open `http://127.0.0.1:8080` and click **Capture synthetic work week**. The appl
 
 ## Roadmap
 
-- Current: synthetic source adapter, persistent snapshots, proportional allocation, preview, local destination adapter and idempotent publishing.
+- Current: synthetic source adapter, persistent snapshots, workload reconciliation, proportional allocation, preview, local destination adapter and idempotent publishing.
 - Next: configurable classification rules and a sanitized Jira/Tempo source adapter example.
 - Next: generic REST destination adapter with dry-run and explicit reconciliation report.
 - Optional: import/export snapshot package for physically separated machines.
